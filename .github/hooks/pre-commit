@@ -1,0 +1,16 @@
+#!/bin/sh
+
+echo "🔍 Running spotless:apply..."
+mvn spotless:apply
+
+echo "🧪 Running pmd:check..."
+mvn pmd:check
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo "❌ PMD check failed. Commit aborted."
+  exit 1
+fi
+
+echo "✅ All checks passed. Proceeding with commit."
+exit 0
